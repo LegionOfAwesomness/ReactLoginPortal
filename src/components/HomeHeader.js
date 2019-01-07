@@ -127,7 +127,7 @@ class HomeHeader extends React.Component {
               <div className="ui large inverted pointing secondary menu">
                 <div className="ui container">
                   <a className="active item" onClick={this.takeMeHome}>
-                    Home
+                    Kewl Wallet
                   </a>
                   {this.state.showModal && (
                     <div className="right item">
