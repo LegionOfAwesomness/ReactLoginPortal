@@ -1,17 +1,21 @@
 import React from "react";
 import ReactDom from "react-dom";
-import HomeHeader from "./components/HomeHeader";
+
+import RenderPage from  './components/RenderPage';
+
+
 
 
 const App = () => {
 return (
-  <div >
+
     <div>
 
-      <HomeHeader />
+      <RenderPage
+
+      />
     </div>
 
-  </div>
 );
 
 }
