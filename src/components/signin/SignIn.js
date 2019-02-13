@@ -12,8 +12,13 @@ class SignIn extends React.Component {
 
   onformSubmit(event) {
     event.preventDefault();
+    this.setState(
+      { loginData: "response.data", isErr: false, loginErrMsg: null },
+      () => {
+       this.props.loginForm(this.state);
+     })
     //this.props.toggle(true);
-    this.callLoginService(this.state);
+  //  this.callLoginService(this.state);
     console.log("before passing to home component");
     console.log(this.state);
   }
@@ -23,10 +28,14 @@ class SignIn extends React.Component {
     console.log("  inside the service call method");
 
     axios
-      .post("http://localhost:9999/userlogin", {
+      .post("http://sandbox.kewlwallet.com:8080/serviceapi/userlogin",
+        {
+          username: 'consumerApi',
+          password: 'superS3cr3t'
+        }, {
         password: user.pwd,
         userName: user.id
-      })
+      },)
       .then(response => {
         if (response.status !== undefined) {
           this.props.toggle(false);

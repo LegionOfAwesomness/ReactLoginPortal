@@ -1,9 +1,25 @@
 import React from "react";
+import AllStores from "../Stores/AllStores";
+
 
 class UserHome extends React.Component {
+
+
   constructor(props) {
     super(props);
+this.state = {showAllStores:false };
   }
+
+  handleAllstores = () =>{
+
+this.setState(
+  { showAllStores: true},
+  () => {
+   console.log("enter showAllStores");
+ })
+  }
+
+
 
   render() {
     return (
@@ -22,6 +38,58 @@ class UserHome extends React.Component {
                     Kewl Wallet
                   </a>
                   <a className="item">Home</a>
+
+
+                  <div
+                    role="listbox"
+                    aria-expanded="false"
+                    className="ui item simple dropdown"
+                    tabindex="0"
+                  >
+                    <div className="text" role="alert" aria-live="polite" >
+                      All Stores
+                    </div>
+                    <i aria-hidden="true" className="dropdown icon" />
+                    <div className="menu transition">
+                      <div role="option" className="item">
+                        Orders
+                      </div>
+                      <div role="option" className="item">
+                        Settings
+                      </div>
+                      <div role="option" className="item">
+                        Rewards
+                      </div>
+                      <div role="option" className="item">
+                        Logout
+                      </div>
+
+                      <div className="divider" />
+                      <div className="header">Header Item</div>
+                      <div role="option" className="item">
+                        <i className="dropdown icon" />
+                        <span className="text">Submenu</span>
+                        <div className="menu transition">
+                          <div role="option" className="item">
+                            List Item
+                          </div>
+                          <div role="option" className="item">
+                            List Item
+                          </div>
+                        </div>
+                      </div>
+                      <div role="option" className="item" onClick={this.handleAllstores}>
+                        See All Stores
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
                   <div
                     role="listbox"
                     aria-expanded="false"
@@ -65,6 +133,9 @@ class UserHome extends React.Component {
                       </div>
                     </div>
                   </div>
+
+
+
                 </div>
               </div>
               <div className="ui text container" style={{ marginTop: "7em" }}>
@@ -151,6 +222,10 @@ class UserHome extends React.Component {
                   style={{ marginTop: "2em" }}
                 />
               </div>
+              //all brands div
+              {(this.state.showAllStores) &&
+                <AllStores />}
+
               <div
                 className="ui inverted vertical segment"
                 style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
