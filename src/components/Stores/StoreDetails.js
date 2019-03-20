@@ -10,8 +10,13 @@ class StoreDetails extends React.Component {
 
   callStoreDetailService = id => {
     console.log("reached service call");
-    var url = "http://localhost:9999/getCouponsForAdvertiser/" + id;
-    fetch(url)
+    var url = "http://sandbox.kewlwallet.com:8080/serviceapi/getCouponsForAdvertiser/" + id;
+    fetch(url,{
+   method: 'get',
+   headers: new Headers({
+     'Authorization': 'Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=',
+     'Content-Type': 'application/x-www-form-urlencoded'
+   })})
       .then(res => res.json())
       .then(
         result => {

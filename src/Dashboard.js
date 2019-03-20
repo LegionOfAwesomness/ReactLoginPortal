@@ -24,6 +24,7 @@ class Dashboard extends Component {
           open
         </button>
       </main>
+      
     );
   }
 }

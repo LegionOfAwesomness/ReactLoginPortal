@@ -14,12 +14,15 @@ class RenderPage extends React.Component {
 processSignin =  (signInData) =>{
 console.log("inside RenderPage");
   console.log(signInData);
-if((signInData.isErr !== undefined) && !signInData.isErr){
-   console.log("looks like a " + this.state.loginSucess);
-   this.setState(
-     { loginSucess:true}
-   );
-}
+  this.setState(
+    { loginSucess:true}
+  );
+// if((signInData.isErr !== undefined) && !signInData.isErr){
+//    console.log("looks like a " + this.state.loginSucess);
+//    this.setState(
+//      { loginSucess:true}
+//    );
+// }
 
 }
 

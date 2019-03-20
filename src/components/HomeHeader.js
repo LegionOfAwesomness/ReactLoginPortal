@@ -9,6 +9,7 @@ import "./homepage.css";
 import referalService from "../service/referalService";
 import axios from "axios";
 import { GridSpinner } from "react-spinners-kit";
+import ReactPlayer from "react-player";
 
 class HomeHeader extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class HomeHeader extends React.Component {
 
   toggleLoader = value => {
     console.log("inside bro ");
-    this.setState({ isLoading: value });
+    this.setState({ isLoading: false });
   };
   loginDetails = formData => {
     this.props.processSignin(formData);
@@ -60,7 +61,16 @@ class HomeHeader extends React.Component {
 
   // calling validation service
   callValidationService = referalcode => {
-    fetch("http://localhost:9999/searchConsumerReferral/" + referalcode)
+    fetch(
+      "http://sandbox.kewlwallet.com:8080/serviceapi/searchConsumerReferral/" + referalcode,
+      {
+        method: "get",
+        headers: new Headers({
+          Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+    )
       .then(res => res.json())
       .then(result => {
         if (result[0] !== undefined) {
@@ -97,14 +107,15 @@ class HomeHeader extends React.Component {
   };
 
   goTolandingPage = () => {
-    this.setState({
-      signUpSucess:true
-    } ,
- () => {
-   this.props.landingPage();
- }
-);
-}
+    this.setState(
+      {
+        signUpSucess: true
+      },
+      () => {
+        this.props.landingPage();
+      }
+    );
+  };
 
   render() {
     console.log("before setting to component" + this.state.isLoading);
@@ -204,35 +215,18 @@ class HomeHeader extends React.Component {
           {this.state.showModal && (
             <div className="ui vertical segment" style={{ padding: "8em 0em" }}>
               <div className="ui container stackable middle aligned grid">
-                <div className="row">
-                  <div className="eight wide column">
-                    <h3 className="ui header" style={{ fontSize: "2em" }}>
-                      We Help Companies and Companions
-                    </h3>
-                    <p className={{ fontSize: "2em" }}>
-                      We can give your company superpowers to do things that
-                      they never thought possible. Let us delight your customers
-                      and empower your needs... through pure data analytics.
-                    </p>
-                    <h3 className="ui header" style={{ fontSize: "2em" }}>
-                      We Make Bananas That Can Dance
-                    </h3>
-                    <p style={{ fontSize: "2em" }}>
-                      Yes that's right, you thought it was the stuff of dreams,
-                      but even bananas can be bioengineered.
-                    </p>
-                  </div>
-                  <div className="right floated six wide column">
-                    <img
-                      src="/images/wireframe/white-image.png"
-                      class="ui large bordered rounded image"
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div class="center aligned column">
-                    <button className="ui huge button">Check Them Out</button>
-                  </div>
+                <h3 className="ui header" style={{ fontSize: "2em" }}>
+                  We Help Companies and Companions
+                </h3>
+
+                <div class="ui segment">
+                  <ReactPlayer
+                    url="https://youtu.be/We5hMpI2HbU"
+                    className="react-player"
+                    playing
+                    width="100%"
+                    height="100%"
+                  />
                 </div>
               </div>
             </div>
@@ -277,37 +271,7 @@ class HomeHeader extends React.Component {
             className="ui inverted vertical segment"
             style={{ padding: "5em 0em" }}
           >
-            <div className="ui container">
-              <div className="ui inverted stackable divided grid">
-                <div className="row">
-                  <div className="three wide column">
-                    <h4 className="ui inverted header">About</h4>
-                    <div role="list" className="ui inverted link list">
-                      <a role="listitem" className="item">
-                        Sitemap
-                      </a>
-                      <a role="listitem" className="item">
-                        Contact Us
-                      </a>
-                    </div>
-                  </div>
-                  <div className="three wide column">
-                    <h4 className="ui inverted header">Services</h4>
-                    <div role="list" className="ui inverted link list">
-                      <a role="listitem" className="item">
-                        Banana Pre-Order
-                      </a>
-                      <a role="listitem" className="item">
-                        DNA FAQ
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <h6 className="ui inverted header">
-                  © Copyright Kewlwallet 2018 | All Rights Reserved
-                </h6>
-              </div>
-            </div>
+            <Footer />
           </div>
         </div>
       );

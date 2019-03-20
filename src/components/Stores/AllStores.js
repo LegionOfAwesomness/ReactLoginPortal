@@ -71,8 +71,8 @@ class AllStores extends React.Component {
       //let boundItemClick = this.getStore.bind( this,post);
     //  console.log(boundItemClick);
       // Construct the onClick with our bound function
-      return (     <div class="card"  key={post.advertiser_id} onClick={()=> {this.getStore(post.advertiser_id)}}>
-        
+      return (     <div class="card"  key={post.advertiser_id} onClick={()=> {this.getStore(post.advertiser_id,post)}}>
+
               <div class="content">
                 <img
                   class="right floated mini ui image"
@@ -90,8 +90,13 @@ class AllStores extends React.Component {
     );
   };
   callAllUserService = () => {
-    var url = "http://localhost:9999/getCJDeveloperFromDB";
-    fetch(url)
+    var url = "http://sandbox.kewlwallet.com:8080/serviceapi/getCJDeveloperFromDB";
+    fetch(url,{
+   method: 'get',
+   headers: new Headers({
+     'Authorization': 'Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=',
+     'Content-Type': 'application/x-www-form-urlencoded'
+   })})
       .then(res => res.json())
       .then(
         result => {
@@ -116,9 +121,9 @@ class AllStores extends React.Component {
     console.log(this.state);
   };
 
-getStore = (advertiserId) =>{
+getStore = (advertiserId,advertiser) =>{
   this.props.showSelectedStore(advertiserId);
-  console.log(advertiserId);
+  console.log(advertiser);
 }
 
   render() {

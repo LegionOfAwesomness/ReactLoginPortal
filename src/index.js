@@ -1,27 +1,16 @@
 import React from "react";
 import ReactDom from "react-dom";
 
-import RenderPage from  './components/RenderPage';
-
-
+import RenderPage from "./components/RenderPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const App = () => {
-return (
-
+  return (
     <div>
-
-      <RenderPage
-
-      />
+      <RenderPage />
     </div>
+  );
+};
 
-);
-
-}
-
-ReactDom.render(
-<App/>,
-document.querySelector('#root')
-
-);
+ReactDom.render(<App />, document.querySelector("#root"));

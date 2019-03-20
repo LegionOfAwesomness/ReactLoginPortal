@@ -15,9 +15,11 @@ class SignIn extends React.Component {
     this.setState(
       { loginData: "response.data", isErr: false, loginErrMsg: null },
       () => {
-       this.props.loginForm(this.state);
-     })
-    //this.props.toggle(true);
+        this.props.loginForm(this.state);
+      }
+    );
+    this.props.toggle(true);
+    
   //  this.callLoginService(this.state);
     console.log("before passing to home component");
     console.log(this.state);
@@ -28,21 +30,24 @@ class SignIn extends React.Component {
     console.log("  inside the service call method");
 
     axios
-      .post("http://sandbox.kewlwallet.com:8080/serviceapi/userlogin",
+      .post(
+        "http://sandbox.kewlwallet.com:8080/serviceapi/userlogin",{
+              password: user.pwd,
+              userName: user.id
+            },
         {
-          username: 'consumerApi',
-          password: 'superS3cr3t'
-        }, {
-        password: user.pwd,
-        userName: user.id
-      },)
+    headers: { 'Authorization': "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+  "Content-Type": "application/json"}
+  }
+
+      )
       .then(response => {
         if (response.status !== undefined) {
           this.props.toggle(false);
           this.setState(
             { loginData: response.data, isErr: false, loginErrMsg: null },
             () => {
-             this.props.loginForm(this.state);
+              this.props.loginForm(this.state);
             }
           );
         }
@@ -54,8 +59,8 @@ class SignIn extends React.Component {
           console.log(error.response.data.message);
           this.setState({
             loginErrMsg: error.response.data.message,
-            isErr: true}
-          );
+            isErr: true
+          });
         }
       });
     console.log(this.state);

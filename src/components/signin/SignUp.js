@@ -33,25 +33,22 @@ class SignUp extends React.Component {
     }
   };
 
-
-  checkEmailExists = (emailid) => {
-  let emailEmailExists = false;
-    fetch("http://localhost:9999/searchConsumerReferral/" + emailid )
-    .then(res => res.json())
-    .then(result => {
-      if (result[0] !== undefined) {
-        if (
-          emailid === result[0].email
-        ) {
-          console.log("email already exists");
-          emailEmailExists =  true;
-          console.log("email already exists" + emailEmailExists);
+  checkEmailExists = emailid => {
+    let emailEmailExists = false;
+    fetch("http://localhost:9999/searchConsumerReferral/" + emailid)
+      .then(res => res.json())
+      .then(result => {
+        if (result[0] !== undefined) {
+          if (emailid === result[0].email) {
+            console.log("email already exists");
+            emailEmailExists = true;
+            console.log("email already exists" + emailEmailExists);
+          }
         }
-      }
-    });
+      });
     console.log("email exists ??" + emailEmailExists);
     return emailEmailExists;
-};
+  };
 
   //call add user service on sucessfull sign up formData
   createUser = (user, referer) => {
@@ -59,7 +56,16 @@ class SignUp extends React.Component {
     console.log(this.state.referer);
 
     axios
-      .post("http://localhost:9999/addConsumerProfile/" + referer, user)
+      .post(
+        "http://sandbox.kewlwallet.com:8080/serviceapi/addConsumerProfile/" + referer,
+        user,
+        {
+          headers: {
+            Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+            "Content-Type": "application/json"
+          }
+        }
+      )
       .then(response => {
         if (response.status !== undefined) {
           console.log(response.status);
@@ -103,7 +109,7 @@ class SignUp extends React.Component {
   };
 
   //validations for sign up form
-  validateForm =() =>{
+  validateForm = () => {
     let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
@@ -165,23 +171,23 @@ class SignUp extends React.Component {
         errors["emailid"] = "*Please enter valid email-ID.";
       }
 
-// tbd email validation
+      // tbd email validation
 
-    //   fetch("http://localhost:9999/searchConsumerReferral/" + fields["emailid"] )
-    //   .then(res => res.json())
-    //   .then(result => {
-    //     if (result[0] !== undefined) {
-    //       if (
-    //         fields["emailid"] === result[0].email
-    //       ) {
-    //         formIsValid = false;
-    //         console.log('inside the validation method' + formIsValid);
-    //         errors["emailid"] = "An account already exists with this id";
-    //         console.log(errors["emailid"]);
-    //       }
-    //     }
-    //   });
-     }
+      //   fetch("http://localhost:9999/searchConsumerReferral/" + fields["emailid"] )
+      //   .then(res => res.json())
+      //   .then(result => {
+      //     if (result[0] !== undefined) {
+      //       if (
+      //         fields["emailid"] === result[0].email
+      //       ) {
+      //         formIsValid = false;
+      //         console.log('inside the validation method' + formIsValid);
+      //         errors["emailid"] = "An account already exists with this id";
+      //         console.log(errors["emailid"]);
+      //       }
+      //     }
+      //   });
+    }
 
     if (!fields["mobileno"]) {
       formIsValid = false;
@@ -229,7 +235,7 @@ class SignUp extends React.Component {
       errors: errors
     });
     return formIsValid;
-  }
+  };
 
   render() {
     return (
@@ -392,13 +398,11 @@ class SignUp extends React.Component {
                     value={this.state.fields.address2}
                     onChange={this.handleChange}
                     placeholder="Apt #"
-
                   />
                 </div>
               </div>
             </div>
             <div class="three fields">
-
               <div class="field">
                 <label>City</label>
                 <input
@@ -484,7 +488,6 @@ class SignUp extends React.Component {
                   required
                 />
               </div>
-
             </div>
           </div>
 
@@ -539,19 +542,23 @@ class SignUp extends React.Component {
           <div class="ui segment">
             <div class="field">
               <div class="ui toggle checkbox">
-                <textarea cols="100" rows="5"
-                  value ="  Do not include a receipt in the packageTerms and conditions go
-                    here" readOnly>
-
-                </textarea>
+                <textarea
+                  cols="100"
+                  rows="5"
+                  value="  Do not include a receipt in the packageTerms and conditions go
+                    here"
+                  readOnly
+                />
               </div>
             </div>
             <div class="two fields">
               <div class="one wide field right">
-                <input type="checkbox" name="gift" class="hidden" required/>
+                <input type="checkbox" name="gift" class="hidden" required />
               </div>
               <div class="ten wide field">
-                <label>Accept the Terms & Conditions to complete the sign up process</label>
+                <label>
+                  Accept the Terms & Conditions to complete the sign up process
+                </label>
               </div>
             </div>
           </div>
