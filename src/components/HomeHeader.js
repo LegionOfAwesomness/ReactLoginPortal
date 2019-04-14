@@ -10,6 +10,7 @@ import referalService from "../service/referalService";
 import axios from "axios";
 import { GridSpinner } from "react-spinners-kit";
 import ReactPlayer from "react-player";
+import { Container, Row, Col } from 'reactstrap';
 
 class HomeHeader extends React.Component {
   constructor(props) {
@@ -137,9 +138,13 @@ class HomeHeader extends React.Component {
             >
               <div className="ui large inverted pointing secondary menu">
                 <div className="ui container">
-                  <a className="active item" onClick={this.takeMeHome}>
-                    Kewl Wallet
-                  </a>
+                <a className="header item" onClick={this.takeMeHome}>
+                  <img
+                    src="/kewlwallet.jpg"
+                    className="ui small image"
+                    style={{ marginRight: "1.5emem" }}
+                  />
+                </a>
                   {this.state.showModal && (
                     <div className="right item">
                       <a
@@ -154,6 +159,7 @@ class HomeHeader extends React.Component {
                   )}
                 </div>
               </div>
+
               <div className="ui text container">
                 <div className="ui middle aligned center aligned grid">
                   {this.state.isShowing && this.state.showModal && (
@@ -209,6 +215,7 @@ class HomeHeader extends React.Component {
                   </div>
                 )}
               </div>
+
             </div>
           </div>
 

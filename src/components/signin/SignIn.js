@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class SignIn extends React.Component {
       }
     );
     this.props.toggle(true);
-    
+
   //  this.callLoginService(this.state);
     console.log("before passing to home component");
     console.log(this.state);
@@ -106,11 +107,13 @@ class SignIn extends React.Component {
                 />
               </div>
             </div>
-            <input
-              className="ui fluid large blue submit button"
-              type="submit"
-              value="Submit"
-            />
+
+              <Link to="/home"><input
+                className="ui fluid large blue submit button"
+                type="submit"
+                value="Submit"
+              /></Link>
+
           </form>
 
           <div className="ui message">

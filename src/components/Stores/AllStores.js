@@ -1,7 +1,9 @@
 import React from "react";
 import Pagination from "pagination-component";
 import { css } from "glamor";
-import { ListGroup, Tab } from "react-bootstrap";
+import { ListGroup, Tab  } from "react-bootstrap";
+import { Button , ButtonGroup } from 'reactstrap';
+import { Container, Row, Col } from "reactstrap";
 var storesList = [];
 let size = 0;
 
@@ -71,7 +73,7 @@ class AllStores extends React.Component {
       //let boundItemClick = this.getStore.bind( this,post);
     //  console.log(boundItemClick);
       // Construct the onClick with our bound function
-      return (     <div class="card"  key={post.advertiser_id} onClick={()=> {this.getStore(post.advertiser_id,post)}}>
+      return (     <div class="card"  key={post.advertiser_id}>
 
               <div class="content">
                 <img
@@ -82,7 +84,11 @@ class AllStores extends React.Component {
                 <div class="meta">clothes</div>
                 <div class="description">{post.content}</div>
               </div>
+              <ButtonGroup>
+         <Button outline color="primary" href={post.program_url} active={this.state.rSelected === 1}>Store</Button>
 
+         <Button outline color="primary" onClick={() => {this.getStore(post.advertiser_id,post)}} active={this.state.rSelected === 2}>Coupons</Button>
+       </ButtonGroup>
             </div>)
     })
   }
@@ -125,6 +131,7 @@ getStore = (advertiserId,advertiser) =>{
   this.props.showSelectedStore(advertiserId);
   console.log(advertiser);
 }
+
 
   render() {
     return (

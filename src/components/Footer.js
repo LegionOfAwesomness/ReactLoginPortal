@@ -1,5 +1,6 @@
 import React from "react";
 import './homepage.css';
+import { Link } from "react-router-dom";
 
 class Footer  extends React.Component{
   constructor(props){
@@ -26,9 +27,9 @@ class Footer  extends React.Component{
           <div class="three wide column">
             <h4 class="ui inverted header">About</h4>
             <div class="ui inverted link list">
-              <a href="#" class="item">Home</a>
-              <a href="#" class="item">Contact Us</a>
-              <a href="#" class="item">About Us</a>
+            <Link class="item" to="/">Home</Link>
+            <Link class="item" to="/Contact">Contact Us</Link>
+            <Link class="item" to="/home">About Us</Link>
             </div>
           </div>
         </div>
