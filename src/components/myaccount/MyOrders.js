@@ -4,7 +4,7 @@ import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
 import { ORDERS } from "../../Shared/SampleData";
 
 var storesList = [];
-class MyPersonal extends React.Component {
+class MyOrders extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -187,4 +187,4 @@ class MyPersonal extends React.Component {
   }
 }
 
-export default MyPersonal;
+export default MyOrders;

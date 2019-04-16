@@ -343,3 +343,74 @@ export const COMMISIONS = [
     status: "Payment by check"
   }
 ];
+
+
+export const REWARDS = [
+
+  {
+    id: 1,
+    transactionId: "Indirect Sponsorship - order #152",
+    store: "FragranceNet.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  },
+  {
+    id: 2,
+    transactionId: "Direct Sponsorship - order #150",
+    store: "FragranceX.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+
+  },
+  {
+    id: 3,
+    transactionId: "Direct Sponsorship - order #149",
+    store: "FragranceX.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  },
+  {
+    id: 4,
+    transactionId: "Indirect Sponsorship - order #148",
+    store: "FragranceNet.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  },
+  {
+    id: 5,
+    transactionId: "Direct Sponsorship - order #147",
+    store: "FragranceX.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  },
+  {
+    id: 6,
+    transactionId: "Indirect Sponsorship - order #146",
+    store: "Motorcycle Superstore.com",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+
+  },
+  {
+    id: 7,
+    transactionId: "Indirect Sponsorship - order #145",
+    store: "Fandango",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  },
+  {
+    id: 8,
+    transactionId: "Direct Sponsorship - order #143",
+    store: "Fandango",
+    date: "11/19/2015",
+    reward: "$1.60",
+    status: "Payment by check"
+  }
+];

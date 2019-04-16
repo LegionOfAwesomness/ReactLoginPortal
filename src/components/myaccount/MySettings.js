@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
 
 var storesList = [];
-class MyPersonal extends React.Component {
+class MySettings extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -142,4 +142,4 @@ class MyPersonal extends React.Component {
   }
 }
 
-export default MyPersonal;
+export default MySettings;

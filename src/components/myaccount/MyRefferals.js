@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
 
 var storesList = [];
-class MyPersonal extends React.Component {
+class MyRefferals extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -91,9 +91,19 @@ class MyPersonal extends React.Component {
         </div>
         <h2 class="ui center aligned header">Device Adjustment</h2>
         <h3 class="ui center aligned header">Device Column Width</h3>
-        <div>
-
+        <Container>
+        <div class="ui top attached tabular menu">
+          <div class="active item">Refer My Friends</div>
+          <div class=" item">Pending Friends</div>
+          <div class=" item">Friends Refered</div>
+          <div class=" item">Statistics</div>
         </div>
+        <div class="ui bottom attached loading tab segment">
+          <p></p>
+          <p></p>
+        </div>
+
+        </Container>
         <div>
           <div
             className="ui inverted vertical segment"
@@ -142,4 +152,4 @@ class MyPersonal extends React.Component {
   }
 }
 
-export default MyPersonal;
+export default MyRefferals;
