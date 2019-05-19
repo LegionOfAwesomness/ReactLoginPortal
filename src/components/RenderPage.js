@@ -10,8 +10,14 @@ import MyWishlists from "./myaccount/MyWishlists";
 import MyRewards from "./myaccount/MyRewards";
 import MyVouchers from "./myaccount/MyVouchers";
 import MySettings from "./myaccount/MySettings";
+import ConfirmEmail from "./signin/ConfirmEmail";
 
-import { Switch, Route, Redirect } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import "./modal.css";
 import Contact from "./ContactComponent";
 class RenderPage extends React.Component {
@@ -24,13 +30,14 @@ class RenderPage extends React.Component {
   processSignin = signInData => {
     console.log("inside RenderPage");
     console.log(signInData);
-    this.setState({ loginSucess: true });
-    // if((signInData.isErr !== undefined) && !signInData.isErr){
-    //    console.log("looks like a " + this.state.loginSucess);
-    //    this.setState(
-    //      { loginSucess:true}
-    //    );
-    // }
+   // this.setState({ loginSucess: true });
+    if((signInData.isErr !== undefined) && !signInData.isErr){
+       console.log("looks like a " + this.state.loginSucess);
+      //  this.setState(
+      //    { loginSucess:true}
+      //  );
+      this.props.history.push('/home')
+    }
   };
 
   //togle for langing page
@@ -95,6 +102,8 @@ class RenderPage extends React.Component {
           <Route exact path="/vouchers" component={MyVouchers}/>
           <Route exact path="/settings" component={MySettings}/>
           <Route exact path="/wishlists" component={MyWishlists}/>
+          <Route exact path="/confirm" component={ConfirmEmail}/>
+          <Route exact path="/ServerError" component={MyVouchers}/>
           <Redirect to="/"/>
         </Switch>
       </div>
@@ -102,4 +111,4 @@ class RenderPage extends React.Component {
   }
 }
 
-export default RenderPage;
+export default withRouter(RenderPage);

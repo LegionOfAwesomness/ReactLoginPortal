@@ -158,14 +158,6 @@ getStore = (advertiserId,advertiser) =>{
           <a class="item">I</a>
           <a class="item">J</a>
           <a class="item">K</a>
-          <a class="item">L</a>
-          <a class="item">M</a>
-          <a class="item">N</a>
-          <a class="item">O</a>
-          <a class="item">P</a>
-          <a class="item">Q</a>
-          <a class="item">R</a>
-          <a class="item">S</a>
           <a class="item">T</a>
           <a class="item">U</a>
           <a class="item">V</a>

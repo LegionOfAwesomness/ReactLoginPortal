@@ -213,7 +213,7 @@ class UserHome extends React.Component {
     fetch(url, {
       method: "get",
       headers: new Headers({
-        Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+        "Authorization": "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
         "Content-Type": "application/x-www-form-urlencoded"
       })
     })

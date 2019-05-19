@@ -143,7 +143,12 @@ class MyCommisions extends React.Component {
               </tbody>
             </table>
             <br ></br>
-            <table style={{ backgroundColor: "#d9d9d9" }} class="ui celled padded table">
+            < table style = {
+              {
+                backgroundColor: "#d9d9d9"
+              }
+            }
+            class = "ui celled unstackable table" >
   <thead>
     <tr>
     <th>Transaction ID</th>

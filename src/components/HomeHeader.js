@@ -10,7 +10,8 @@ import referalService from "../service/referalService";
 import axios from "axios";
 import { GridSpinner } from "react-spinners-kit";
 import ReactPlayer from "react-player";
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col } from "reactstrap";
+import { withRouter } from "react-router-dom";
 
 class HomeHeader extends React.Component {
   constructor(props) {
@@ -34,8 +35,9 @@ class HomeHeader extends React.Component {
   };
 
   toggleLoader = value => {
-    console.log("inside bro ");
-    this.setState({ isLoading: false });
+    this.setState({
+      isLoading: false
+    });
   };
   loginDetails = formData => {
     this.props.processSignin(formData);
@@ -62,34 +64,40 @@ class HomeHeader extends React.Component {
 
   // calling validation service
   callValidationService = referalcode => {
-    fetch(
-      "http://sandbox.kewlwallet.com:8080/serviceapi/searchConsumerReferral/" + referalcode,
-      {
-        method: "get",
-        headers: new Headers({
-          Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
-          "Content-Type": "application/x-www-form-urlencoded"
-        })
-      }
-    )
-      .then(res => res.json())
-      .then(result => {
-        if (result[0] !== undefined) {
-          if (
-            referalcode === result[0].email ||
-            referalcode === result[0].referralCode
-          ) {
-            this.setState(
-              { referer: result[0].consumerDataId, isHome: true },
-              () => {
-                console.log("this is the state ");
-                this.toggleModalOff();
-                console.log(this.state);
-              }
-            );
+    axios
+      .get(
+        "http://sandbox.kewlwallet.com:8080/serviceapi/searchConsumerReferral/" +
+          referalcode,
+        {
+          headers: {
+            Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+            "Content-Type": "application/json"
           }
-        } else if (result.message !== undefined) {
-          this.setErrMsg(result.message);
+        }
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data !== "") {
+          if (response.data.consumerData !== undefined) {
+            if (
+              referalcode === response.data.consumerData.email ||
+              referalcode === response.data.consumerData.referralCode
+            ) {
+              this.setState(
+                {
+                  referer: response.data.consumerData.consumerDataId,
+                  isHome: true
+                },
+                () => {
+                  console.log("this is the state ");
+                  this.toggleModalOff();
+                  console.log(this.state);
+                }
+              );
+            }
+          }
+        } else {
+          this.setErrMsg("Referal code is not valid");
           console.log("state ");
           console.log(this.state.validationErrMsg);
         }
@@ -125,43 +133,45 @@ class HomeHeader extends React.Component {
     } else {
       return (
         <div id="root">
-          {/* { this.state.isLoading &&
-        <GridSpinner
-               size={60}
-               color="#2185d0"
-             />} */}
-
+          {" "}
+          {this.state.isLoading && <GridSpinner size={60} color="#2185d0" />}
           <div className="pushable">
             <div
               className="ui inverted vertical center aligned segment"
-              style={{ minHeight: "700px", padding: "1em 0em" }}
+              style={{
+                minHeight: "700px",
+                padding: "1em 0em"
+              }}
             >
               <div className="ui large inverted pointing secondary menu">
                 <div className="ui container">
-                <a className="header item" onClick={this.takeMeHome}>
-                  <img
-                    src="/kewlwallet.jpg"
-                    className="ui small image"
-                    style={{ marginRight: "1.5emem" }}
-                  />
-                </a>
+                  <a className="header item" onClick={this.takeMeHome}>
+                    <img
+                      src="/kewlwallet.jpg"
+                      className="ui small image"
+                      style={{ marginRight: "1.5emem" }}
+                    />
+                  </a>
                   {this.state.showModal && (
                     <div className="right item">
                       <a
                         className="ui inverted button"
                         role="button"
-                        style={{ marginLeft: "0.5em" }}
+                        style={{
+                          marginLeft: "0.5em"
+                        }}
                         onClick={this.openModalHandler}
                       >
-                        Sign Up
-                      </a>
+                        Sign Up{" "}
+                      </a>{" "}
                     </div>
-                  )}
+                  )}{" "}
                 </div>
               </div>
 
               <div className="ui text container">
                 <div className="ui middle aligned center aligned grid">
+                  {" "}
                   {this.state.isShowing && this.state.showModal && (
                     <Modal
                       className="modal"
@@ -170,21 +180,21 @@ class HomeHeader extends React.Component {
                       validate={this.validatereferal}
                       errmsg={this.state.validationErrMsg}
                     />
-                  )}
+                  )}{" "}
                   {!this.state.isShowing && (
                     <SignIn
                       loginForm={this.loginDetails}
                       state={this.setcredentials}
                       toggle={this.toggleLoader}
                     />
-                  )}
+                  )}{" "}
                   {!this.state.showModal && (
                     <SignUp
                       referer={this.state.referer}
                       landingPage={this.goTolandingPage}
                     />
-                  )}
-                </div>
+                  )}{" "}
+                </div>{" "}
                 {this.state.showModal && (
                   <div>
                     <h1
@@ -196,8 +206,8 @@ class HomeHeader extends React.Component {
                         marginTop: "3em"
                       }}
                     >
-                      Imagine-a-Company
-                    </h1>
+                      Imagine - a - Company{" "}
+                    </h1>{" "}
                     <h2
                       className="ui inverted header"
                       style={{
@@ -209,23 +219,31 @@ class HomeHeader extends React.Component {
                       Do whatever you want when you want to.
                     </h2>
                     <button className="ui huge primary button">
-                      Get Started
+                      Get Started{" "}
                       <i aria-hidden="true" class="right arrow icon" />
                     </button>
                   </div>
                 )}
               </div>
-
             </div>
           </div>
-
+          }
           {this.state.showModal && (
-            <div className="ui vertical segment" style={{ padding: "8em 0em" }}>
+            <div
+              className="ui vertical segment"
+              style={{
+                padding: "8em 0em"
+              }}
+            >
               <div className="ui container stackable middle aligned grid">
-                <h3 className="ui header" style={{ fontSize: "2em" }}>
-                  We Help Companies and Companions
+                <h3
+                  className="ui header"
+                  style={{
+                    fontSize: "2em"
+                  }}
+                >
+                  We Help Companies and Companions{" "}
                 </h3>
-
                 <div class="ui segment">
                   <ReactPlayer
                     url="https://youtu.be/We5hMpI2HbU"
@@ -234,49 +252,78 @@ class HomeHeader extends React.Component {
                     width="100%"
                     height="100%"
                   />
-                </div>
-              </div>
+                </div>{" "}
+              </div>{" "}
             </div>
           )}
-
           {this.state.showModal && (
-            <div className="ui vertical segment" style={{ padding: "0em" }}>
+            <div
+              className="ui vertical segment"
+              style={{
+                padding: "0em"
+              }}
+            >
               <div className="ui stackable internally celled equal width grid">
                 <div className="center aligned row">
                   <div
                     className="column"
-                    style={{ paddingBottom: "5em", paddingTop: "5em" }}
+                    style={{
+                      paddingBottom: "5em",
+                      paddingTop: "5em"
+                    }}
                   >
-                    <h3 className="ui header" style={{ fontSize: "2em" }}>
-                      "What a Company"
-                    </h3>
-                    <p style={{ fontSize: "2em" }}>
-                      That is what they all say about us
-                    </p>
-                  </div>
+                    <h3
+                      className="ui header"
+                      style={{
+                        fontSize: "2em"
+                      }}
+                    >
+                      "What a Company"{" "}
+                    </h3>{" "}
+                    <p
+                      style={{
+                        fontSize: "2em"
+                      }}
+                    >
+                      That is what they all say about us{" "}
+                    </p>{" "}
+                  </div>{" "}
                   <div
                     className="column"
-                    style={{ paddingBottom: "5em", paddingTop: "5em" }}
+                    style={{
+                      paddingBottom: "5em",
+                      paddingTop: "5em"
+                    }}
                   >
-                    <h3 className="ui header" style={{ fontSize: "2em" }}>
-                      "I shouldn't have gone with their competitor."
-                    </h3>
-                    <p style={{ fontSize: "1.33em" }}>
+                    <h3
+                      className="ui header"
+                      style={{
+                        fontSize: "2em"
+                      }}
+                    >
+                      "I shouldn't have gone with their competitor."{" "}
+                    </h3>{" "}
+                    <p
+                      style={{
+                        fontSize: "1.33em"
+                      }}
+                    >
                       <img
                         src="/images/avatar/large/nan.jpg"
                         class="ui avatar image"
                       />
-                      <b>Nan</b> Chief Fun Officer Acme Toys
-                    </p>
-                  </div>
-                </div>
-              </div>
+                      <b> Nan </b> Chief Fun Officer Acme Toys{" "}
+                    </p>{" "}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
             </div>
           )}
-
           <div
             className="ui inverted vertical segment"
-            style={{ padding: "5em 0em" }}
+            style={{
+              padding: "5em 0em"
+            }}
           >
             <Footer />
           </div>
@@ -286,4 +333,4 @@ class HomeHeader extends React.Component {
   }
 }
 
-export default HomeHeader;
+export default withRouter(HomeHeader);

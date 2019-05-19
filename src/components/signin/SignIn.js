@@ -1,6 +1,12 @@
 import React from "react";
 import axios from "axios";
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+  Link,
+  withRouter
+} from 'react-router-dom';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -11,17 +17,24 @@ class SignIn extends React.Component {
     this.handlePwd = this.handlePwd.bind(this);
   }
 
+  
+
   onformSubmit(event) {
     event.preventDefault();
-    this.setState(
-      { loginData: "response.data", isErr: false, loginErrMsg: null },
-      () => {
-        this.props.loginForm(this.state);
-      }
-    );
-    this.props.toggle(true);
 
-  //  this.callLoginService(this.state);
+    console.log("inside login portal")
+    //uncomment to disable login
+//     this.props.toggle(true);
+// this.setState({
+//     loginData: "response.data",
+//     isErr: false,
+//     loginErrMsg: null
+//   },
+//   () => {
+//     this.props.loginForm(this.state);
+//   }
+// );
+     this.callLoginService(this.state);
     console.log("before passing to home component");
     console.log(this.state);
   }
@@ -108,11 +121,11 @@ class SignIn extends React.Component {
               </div>
             </div>
 
-              <Link to="/home"><input
+              <input
                 className="ui fluid large blue submit button"
                 type="submit"
                 value="Submit"
-              /></Link>
+              />
 
           </form>
 
@@ -128,4 +141,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

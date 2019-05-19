@@ -1,13 +1,17 @@
 import React from "react";
 import "./modal.css";
 import axios from "axios";
+import { Switch, Route, Redirect, Link } from "react-router-dom";
+import  ConfirmEmail from "./ConfirmEmail"
 
 class SignUp extends React.Component {
   constructor() {
     super();
     this.state = {
       fields: {},
-      errors: {}
+      errors: {},
+      redirect: false,
+      setServerError: false
     };
   }
 
@@ -35,7 +39,16 @@ class SignUp extends React.Component {
 
   checkEmailExists = emailid => {
     let emailEmailExists = false;
-    fetch("http://localhost:9999/searchConsumerReferral/" + emailid)
+
+    var url =
+      "http://sandbox.kewlwallet.com:8080/searchConsumerReferral/" + emailid;
+    fetch(url, {
+      method: "get",
+      headers: new Headers({
+        "Authorization": "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+        "Content-Type": "application/json"
+      })
+    })
       .then(res => res.json())
       .then(result => {
         if (result[0] !== undefined) {
@@ -53,30 +66,37 @@ class SignUp extends React.Component {
   //call add user service on sucessfull sign up formData
   createUser = (user, referer) => {
     console.log("userdata");
+      console.log(user);
     console.log(this.state.referer);
 
     axios
       .post(
         "http://sandbox.kewlwallet.com:8080/serviceapi/addConsumerProfile/" + referer,
         user,
-        {
-          headers: {
-            Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
-            "Content-Type": "application/json"
-          }
-        }
+              {
+                headers: {
+                  'Authorization': "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+                  "Content-Type": "application/json"
+                }
+              }
       )
       .then(response => {
         if (response.status !== undefined) {
-          console.log(response.status);
-          this.props.landingPage();
+
+        //  this.props.landingPage();
+        if(response.status == '200'){
+            console.log(response.status);
+            this.setRedirect();
+        }
+
+
         }
       })
       .catch(error => {
         console.log("error");
         if (error.response !== undefined) {
           console.log(error.response.data.message);
-          this.props.landingPage();
+        this.setServerError();
         }
       });
   };
@@ -87,22 +107,21 @@ class SignUp extends React.Component {
     let userInfo = {
       firstName: signUpData.fname,
       lastName: signUpData.lname,
-      phoneNumber: signUpData.mobileno,
+      phoneNumber: " ",
       address: {
-        line1: signUpData.address1,
-        line2: signUpData.address2,
+        line1: " ",
+        line2: "signUpData.address2",
         city: "vienna",
-        state: signUpData.state,
-        zipcode: signUpData.zipcode
+        state: "signUpData.state",
+        zipcode: "22180"
       },
       consumerData: {
         email: signUpData.emailid
       },
-      user: {
-        email: signUpData.emailid,
+      users:[ {
         userName: signUpData.emailid,
         password: signUpData.password
-      }
+      }]
     };
 
     return userInfo;
@@ -126,17 +145,17 @@ class SignUp extends React.Component {
       }
     }
 
-    if (!fields["mname"]) {
-      formIsValid = false;
-      errors["mname"] = "*Please enter your middle name.";
-    }
-
-    if (typeof fields["mname"] !== "undefined") {
-      if (!fields["mname"].match(/^[a-zA-Z ]*$/)) {
-        formIsValid = false;
-        errors["mname"] = "*Please enter alphabet characters only.";
-      }
-    }
+    // if (!fields["mname"]) {
+    //   formIsValid = false;
+    //   errors["mname"] = "*Please enter your middle name.";
+    // }
+    //
+    // if (typeof fields["mname"] !== "undefined") {
+    //   if (!fields["mname"].match(/^[a-zA-Z ]*$/)) {
+    //     formIsValid = false;
+    //     errors["mname"] = "*Please enter alphabet characters only.";
+    //   }
+    // }
 
     if (!fields["lname"]) {
       formIsValid = false;
@@ -189,24 +208,24 @@ class SignUp extends React.Component {
       //   });
     }
 
-    if (!fields["mobileno"]) {
-      formIsValid = false;
-      errors["mobileno"] = "*Please enter your mobile no.";
-    }
+    // if (!fields["mobileno"]) {
+    //   formIsValid = false;
+    //   errors["mobileno"] = "*Please enter your mobile no.";
+    // }
+    //
+    // if (typeof fields["mobileno"] !== "undefined") {
+    //   if (!fields["mobileno"].match(/^[0-9]{10}$/)) {
+    //     formIsValid = false;
+    //     errors["mobileno"] = "*Please enter valid mobile no.";
+    //   }
+    // }
 
-    if (typeof fields["mobileno"] !== "undefined") {
-      if (!fields["mobileno"].match(/^[0-9]{10}$/)) {
-        formIsValid = false;
-        errors["mobileno"] = "*Please enter valid mobile no.";
-      }
-    }
-
-    if (typeof fields["homephone"] !== "undefined") {
-      if (!fields["mobileno"].match(/^[0-9]{10}$/)) {
-        formIsValid = false;
-        errors["mobileno"] = "*Please enter valid mobile no.";
-      }
-    }
+    // if (typeof fields["homephone"] !== "undefined") {
+    //   if (!fields["mobileno"].match(/^[0-9]{10}$/)) {
+    //     formIsValid = false;
+    //     errors["mobileno"] = "*Please enter valid mobile no.";
+    //   }
+    // }
 
     if (!fields["password"]) {
       formIsValid = false;
@@ -231,14 +250,38 @@ class SignUp extends React.Component {
       }
     }
 
+
+
     this.setState({
       errors: errors
     });
     return formIsValid;
   };
 
+  setServerError = () =>{
+    this.setState({
+      setServerError: true
+    })
+  }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+   if (this.state.redirect) {
+     return <Redirect to='/confirm' />
+   }
+   else if (this.state.setServerError){
+     return <Redirect to='/ServerError' />
+   }
+ }
+
+
   render() {
     return (
+      <div>
       <div className="ui stacked  segment">
         <h2 className="ui blue image header">
           <div className="content">Complete the Sign up form</div>
@@ -257,18 +300,7 @@ class SignUp extends React.Component {
           <div class="field">
             <label>Name</label>
 
-            <div class="field">
-              <div class="three wide field">
-                <input
-                  type="text"
-                  name="prefix"
-                  value={this.state.fields.prefix}
-                  onChange={this.handleChange}
-                  placeholder="Prefix"
-                />
-                <div className="errorMsg">{this.state.errors.prefix}</div>
-              </div>
-            </div>
+
             <div class="two fields">
               <div class="field">
                 <input
@@ -294,60 +326,6 @@ class SignUp extends React.Component {
               </div>
             </div>
 
-            <div class="two fields">
-              <div class="field">
-                <input
-                  type="text"
-                  name="mname"
-                  value={this.state.fields.mname}
-                  onChange={this.handleChange}
-                  placeholder="Middle Name"
-                />
-                <div className="errorMsg">{this.state.errors.mname}</div>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  name="suffix"
-                  value={this.state.fields.suffix}
-                  onChange={this.handleChange}
-                  placeholder="Suffix"
-                />
-                <div className="errorMsg">{this.state.errors.suffix}</div>
-              </div>
-            </div>
-
-            <label>Date of Birth</label>
-
-            <div class="three fields">
-              <div class="field">
-                <input
-                  type="text"
-                  name="month"
-                  value={this.state.fields.month}
-                  onChange={this.handleChange}
-                  placeholder="Month"
-                />
-              </div>
-              <div class="field">
-                <input
-                  type="date"
-                  name="date"
-                  value={this.state.fields.date}
-                  onChange={this.handleChange}
-                  placeholder="Date"
-                />
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  name="year"
-                  value={this.state.fields.year}
-                  onChange={this.handleChange}
-                  placeholder="Year"
-                />
-              </div>
-            </div>
 
             <label>Phone</label>
 
@@ -572,6 +550,8 @@ class SignUp extends React.Component {
           </div>
         </form>
       </div>
+       {this.renderRedirect()}
+       </div>
     );
   }
 }

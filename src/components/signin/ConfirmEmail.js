@@ -1,32 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
-import { REWARDS } from "../../Shared/SampleData";
 
 var storesList = [];
-class MyRewards extends React.Component {
+class ConfirmEmail extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  renderCommisions = () => {
-    return (
- <tbody>
-        {REWARDS.map(commision => {
-
-          console.log(commision)
-          return (
-          <tr key={commision.id}>
-            <td data-label="Transaction ID<">{commision.transactionId}</td>
-           <td data-label="Store">{commision.store}</td>
-            <td data-label="Date">{commision.date}</td>
-            <td data-label="Rewards">{commision.reward}</td>
-            <td data-label="Status">{commision.status}</td>
-          </tr>);
-        })}
-    </tbody>
-    );
-  };
 
   render() {
     return (
@@ -52,30 +32,16 @@ class MyRewards extends React.Component {
               tabindex="0"
             >
               <div className="text" role="alert" aria-live="polite">
-              <Link style={{color:'white'}} to="/myaccount">My Account</Link>
+                All Stores
               </div>
               <i aria-hidden="true" className="dropdown icon" />
               <div className="menu transition">
-                <div role="option" className="item">
-                <Link style={{color:'black'}} to="/orders">Orders</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/commisions">Commisions</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/rewards">Rewards</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/personal">My Account</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/refferals">Refferal</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/wishlists">WishList</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/">Log Out</Link>
+                <div
+                  role="option"
+                  className="item"
+                  onClick={this.handleAllstores}
+                >
+                  See All Stores
                 </div>
               </div>
             </div>
@@ -116,72 +82,38 @@ class MyRewards extends React.Component {
             </div>
           </div>
         </div>
+        <br />
+<Container>
+        <h10>
 
-        <Container>
-          <h2 class="ui center aligned header">Device Adjustment</h2>
-          <br />
-          <h4 class="ui horizontal divider header">
-    <i class="money bill alternate outline icon" />
-  My Rewards
+Sign Up Successful
+</h10>
+        <h4 class="ui horizontal divider header">
+
+Sign Up Successful
 </h4>
-          <div >
-            <table style={{ backgroundColor: "#d9d9d9" }} class="ui celled unstackable table">
-              <thead>
-                <tr>
-                  <th>Total Rewards</th>
-                  <th>Paid</th>
-                  <th>Available</th>
-                  <th>Pending</th>
-                  <th>Awaiting payment</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>$312.26</td>
-                  <td>$30.34 </td>
-                  <td class="right aligned">$0.00 </td>
-                  <td>$281.92</td>
-                  <td>$0.0</td>
-                </tr>
-              </tbody>
-            </table>
-            <br ></br>
-            < table style = {
-              {
-                backgroundColor: "#d9d9d9"
-              }
-            }
-            class = "ui celled unstackable table" >
-  <thead>
-    <tr>
-    <th>Transaction ID</th>
-    <th>Store</th>
-    <th>Date</th>
-    <th>Rewards</th>
-    <th>Status</th>
-  </tr></thead>
-  {this.renderCommisions()}
-  <tfoot>
-    <tr><th colspan="5">
-      <div class="ui right floated pagination menu">
-        <a class="icon item">
-          <i class="left chevron icon"></i>
-        </a>
-        <a class="item">1</a>
-        <a class="item">2</a>
-        <a class="item">3</a>
-        <a class="item">4</a>
-        <a class="icon item">
-          <i class="right chevron icon"></i>
-        </a>
-      </div>
-    </th>
-  </tr></tfoot>
-  </table>
-  <br/>
-          </div>
-        </Container>
 
+
+        <div class="ui center aligned piled segment">
+<h3 class="ui  header">Check your Email</h3>
+  <p>Please click on the confirmation url in your E-Mail</p>
+  <p>and login to continue</p>
+  <p>
+  <button class="ui primary button">
+
+<Link style={{color:'white'}} to="/">SIGN IN</Link></button></p>
+  <p>If you have not recieved the email click to request a new confirmation email</p>
+  <p>
+  <button class="ui primary button">
+
+<Link style={{color:'white'}} to="/">Resend E-mail</Link></button></p>
+
+</div>
+</Container>
+        <div>
+
+        </div>
+        <div>
           <div
             className="ui inverted vertical segment"
             style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
@@ -223,10 +155,10 @@ class MyRewards extends React.Component {
               </div>
             </div>
           </div>
-
+        </div>
       </div>
     );
   }
 }
 
-export default MyRewards;
+export default ConfirmEmail;
