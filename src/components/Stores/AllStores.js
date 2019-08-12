@@ -48,6 +48,7 @@ class AllStores extends React.Component {
     storesPerPageList.push(storesList.length);
     console.log(storesPerPageList);
 
+   
     //creating a mini list for the pagination
     var renderPageList = [];
     for (
@@ -64,6 +65,12 @@ class AllStores extends React.Component {
     });
   };
 
+  createMarkup = (doc) => {
+   // console.log(doc);
+    var str = doc.substring(9, doc.indexOf('\">\n<img'));
+    console.log('qqqqqqqqqqq' + str);
+    return str;
+  }
   //render the store
   renderPaginationList = () => {
     return (
@@ -85,7 +92,7 @@ class AllStores extends React.Component {
                 <div class="description">{post.content}</div>
               </div>
               <ButtonGroup>
-         <Button outline color="primary" href={post.program_url} active={this.state.rSelected === 1}>Store</Button>
+          <Button outline color="primary" href={this.createMarkup(post.link_code_html) } active={this.state.rSelected === 1}>Store</Button>
 
          <Button outline color="primary" onClick={() => {this.getStore(post.advertiser_id,post)}} active={this.state.rSelected === 2}>Coupons</Button>
        </ButtonGroup>
@@ -96,7 +103,7 @@ class AllStores extends React.Component {
     );
   };
   callAllUserService = () => {
-    var url = "http://sandbox.kewlwallet.com:8080/serviceapi/getCJDeveloperFromDB";
+    var url = "http://sandbox.kewlwallet.com:8080/serviceapi/getAllLinksForAllAdvertisers";
     fetch(url,{
    method: 'get',
    headers: new Headers({

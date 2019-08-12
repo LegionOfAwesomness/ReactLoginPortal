@@ -34,7 +34,13 @@ class SignIn extends React.Component {
 //     this.props.loginForm(this.state);
 //   }
 // );
-     this.callLoginService(this.state);
+    // this.callLoginService(this.state);
+    this.setState(
+      { loginData: 'response.data', isErr: false, loginErrMsg: null },
+      () => {
+        this.props.loginForm(this.state);
+      }
+    );
     console.log("before passing to home component");
     console.log(this.state);
   }
