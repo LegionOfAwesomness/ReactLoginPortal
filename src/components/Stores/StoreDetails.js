@@ -1,23 +1,14 @@
+/**
+ * This class is used to display store info and all the coupons available from the store
+ * 
+ */
+
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import {
-  Jumbotron,
-  Media,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from "reactstrap";
+import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Jumbotron, Row } from "reactstrap";
 
 class StoreDetails extends React.Component {
-
-
   constructor(props) {
     super(props);
-
     this.callStoreDetailService(this.props.id);
   }
 
@@ -48,7 +39,8 @@ class StoreDetails extends React.Component {
         }
       );
   };
-
+  // image and description on the left of the page
+  //this is static data as of now.
   getAdvertiser = () => {
     console.log("inde the advertiser method");
 
@@ -82,7 +74,7 @@ class StoreDetails extends React.Component {
             return (
               <div class="ui message" >
                 <div class="header">{post.link_name}</div>
-                {post.coupon_code != "" && (
+                {post.coupon_code !== "" && (
                   <div class="ui tag labels">
                     <a class="ui teal tag label">{post.coupon_code}</a>
                   </div>
@@ -96,7 +88,6 @@ class StoreDetails extends React.Component {
               </div>
             );
           })}
-        }
       </div>
     );
   };
