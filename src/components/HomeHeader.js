@@ -13,6 +13,10 @@ import ReactPlayer from "react-player";
 import { Container, Row, Col } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
+/**
+ * consits of Sign up, Login portal
+ *
+ */
 class HomeHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -63,6 +67,13 @@ class HomeHeader extends React.Component {
   };
 
   // calling validation service
+  /**
+   * [callValidationService description]
+   * @method callValidationService
+   * @param   referalcode [for signup process]
+   * @return if validation of referal code is sucessfull
+   * then move to sign up form
+   */
   callValidationService = referalcode => {
     axios
       .get(
@@ -103,7 +114,11 @@ class HomeHeader extends React.Component {
         }
       });
   };
-
+/**
+ * Signup modal off
+ * @method toggleModalOff
+ * @return {[type]} [description]
+ */
   toggleModalOff = () => {
     this.setState({
       showModal: false
@@ -115,7 +130,10 @@ class HomeHeader extends React.Component {
     });
   };
 
+
   goTolandingPage = () => {
+    //need to check if this is still neccesary
+    // already being seet in the following method
     this.setState(
       {
         signUpSucess: true
@@ -220,7 +238,7 @@ class HomeHeader extends React.Component {
                     </h2>
                     <button className="ui huge primary button">
                       Get Started{" "}
-                      <i aria-hidden="true" class="right arrow icon" />
+                      <i aria-hidden="true" className="right arrow icon" />
                     </button>
                   </div>
                 )}

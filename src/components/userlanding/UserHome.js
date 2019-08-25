@@ -1,6 +1,6 @@
 import React from "react";
 import AllStores from "../Stores/AllStores";
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from "react-router-dom";
 import {
   ButtonGroup,
   Button,
@@ -9,15 +9,30 @@ import {
   CardColumns
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { Container, Row, Col ,Navbar,NavbarBrand} from "reactstrap";
+import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
 import StoreDetails from "../Stores/StoreDetails";
 import Slider from "react-slick";
-import { STORES ,FEATURED} from "../../Shared/SampleData";
+import { STORES, FEATURED } from "../../Shared/SampleData";
 var storesList = [];
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * Calling all stores service on load because we might want to display them in home page
+     * pending clarification from madhu and george
+     * @type {Array of available Stores}
+     */
     this.getAllStoresService();
+    /**
+     * toggle to allstores directly
+     * this will be true only if we route from any page in the application to /AllStores
+     * @method if
+     * @param  {[showAllStores]} Boolean
+     * @return {allstore section} 
+     */
+    if (undefined !== this.props.showAllStores && this.props.showAllStores) {
+      this.state = { showAllStores: true};
+    }
   }
 
   state = {
@@ -132,7 +147,7 @@ class UserHome extends React.Component {
                   <Button
                     variant="outline-primary"
                     onClick={() => {
-                     this.showSelectedStore(post.advertiser_id);
+                      this.showSelectedStore(post.advertiser_id);
                     }}
                     active={this.state.rSelected === 2}
                   >
@@ -192,7 +207,7 @@ class UserHome extends React.Component {
                   <Button
                     variant="outline-primary"
                     onClick={() => {
-                    this.showSelectedStore(post.advertiser_id)
+                      this.showSelectedStore(post.advertiser_id);
                     }}
                     active={this.state.rSelected === 2}
                   >
@@ -213,7 +228,7 @@ class UserHome extends React.Component {
     fetch(url, {
       method: "get",
       headers: new Headers({
-        "Authorization": "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
+        Authorization: "Basic Y29uc3VtZXJBcGk6c3VwZXJTM2NyM3Q=",
         "Content-Type": "application/x-www-form-urlencoded"
       })
     })
@@ -237,10 +252,14 @@ class UserHome extends React.Component {
     console.log("state");
     console.log(this.state);
   };
-
+  /**
+   * flags handles all stores on
+   * @method handleAllstores
+   * @return list of all stores with pagination.
+   */
   handleAllstores = () => {
     this.setState({ showAllStores: true, showSingleStore: false }, () => {
-      console.log("enter showAllStores");
+      console.log("enter handleAllstores method");
     });
   };
 
@@ -265,80 +284,95 @@ class UserHome extends React.Component {
       slidesToScroll: 1
     };
     return (
-
+      <div>
         <div>
-          <div>
-            <div className="ui inverted top fixed menu">
-              <div className="ui container">
-                <a className="header item">
-                  <img
-                    src="/kewlwallet.jpg"
-                    className="ui mini image"
-                    style={{ marginRight: "1.5emem" }}
-                  />
-                </a>
-                <a className="item" onClick={this.goHome}>
-                  Home
-                </a>
+          <div className="ui inverted top fixed menu">
+            <div className="ui container">
+              <a className="header item">
+                <img
+                  src="/kewlwallet.jpg"
+                  className="ui mini image"
+                  style={{ marginRight: "1.5emem" }}
+                />
+              </a>
+              <a className="item" onClick={this.goHome}>
+                Home
+              </a>
 
-                <div
-                  role="listbox"
-                  aria-expanded="false"
-                  className="ui item simple dropdown"
-                  tabindex="0"
-                >
-                  <div className="text" role="alert" aria-live="polite">
-                    All Stores
-                  </div>
-                  <i aria-hidden="true" className="dropdown icon" />
-                  <div className="menu transition">
-                    <div
-                      role="option"
-                      className="item"
-                      onClick={this.handleAllstores}
-                    >
-                      See All Stores
-                    </div>
+              <div
+                role="listbox"
+                aria-expanded="false"
+                className="ui item simple dropdown"
+                tabindex="0"
+              >
+                <div className="text" role="alert" aria-live="polite">
+                  All Stores
+                </div>
+                <i aria-hidden="true" className="dropdown icon" />
+                <div className="menu transition">
+                  <div
+                    role="option"
+                    className="item"
+                    onClick={this.handleAllstores}
+                  >
+                    See All Stores
                   </div>
                 </div>
+              </div>
 
-                <div
-                  role="listbox"
-                  aria-expanded="false"
-                  className="ui item simple dropdown"
-                  tabindex="0"
-                >
-                  <div className="text" role="alert" aria-live="polite">
-                  <Link style={{color:'white'}} to="/myaccount">My Account</Link>
+              <div
+                role="listbox"
+                aria-expanded="false"
+                className="ui item simple dropdown"
+                tabindex="0"
+              >
+                <div className="text" role="alert" aria-live="polite">
+                  <Link style={{ color: "white" }} to="/myaccount">
+                    My Account
+                  </Link>
+                </div>
+                <i aria-hidden="true" className="dropdown icon" />
+                <div className="menu transition">
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/orders">
+                      Orders
+                    </Link>
                   </div>
-                  <i aria-hidden="true" className="dropdown icon" />
-                  <div className="menu transition">
-                    <div role="option" className="item">
-                    <Link style={{color:'black'}} to="/orders">Orders</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/commisions">Commisions</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/rewards">Rewards</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/personal">My Account</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/refferals">Refferal</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/wishlists">WishList</Link>
-                    </div>
-                    <div role="option" className="item">
-                      <Link style={{color:'black'}} to="/">Log Out</Link>
-                    </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/commisions">
+                      Commisions
+                    </Link>
+                  </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/rewards">
+                      Rewards
+                    </Link>
+                  </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/personal">
+                      My Account
+                    </Link>
+                  </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/refferals">
+                      Refferal
+                    </Link>
+                  </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/wishlists">
+                      WishList
+                    </Link>
+                  </div>
+                  <div role="option" className="item">
+                    <Link style={{ color: "black" }} to="/">
+                      Log Out
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
-<Container>
+          </div>
+          <Container>
             {!this.state.showSingleStore && (
               <Jumbotron>
                 <Carousel>
@@ -368,13 +402,13 @@ class UserHome extends React.Component {
             )}
             {!this.state.showSingleStore && !this.state.showAllStores && (
               <div>
-  <Navbar color="light" light expand="md">
-  <NavbarBrand >Featured Stores</NavbarBrand>
-  </Navbar>
-              {this.renderSampleFeaturedStores()}
-              <Navbar color="light" light expand="md">
-              <NavbarBrand >Popular Stores</NavbarBrand>
-              </Navbar>
+                <Navbar color="light" light expand="md">
+                  <NavbarBrand>Featured Stores</NavbarBrand>
+                </Navbar>
+                {this.renderSampleFeaturedStores()}
+                <Navbar color="light" light expand="md">
+                  <NavbarBrand>Popular Stores</NavbarBrand>
+                </Navbar>
                 {this.renderSampleStores()}
 
                 <div class="ui three cards">
@@ -441,51 +475,50 @@ class UserHome extends React.Component {
             {this.state.showSingleStore && (
               <StoreDetails id={this.state.storeId} />
             )}
-            </Container>
+          </Container>
+          <div
+            className="ui inverted vertical segment"
+            style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+          >
             <div
               className="ui inverted vertical segment"
-              style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+              style={{ padding: "5em 0em" }}
             >
-              <div
-                className="ui inverted vertical segment"
-                style={{ padding: "5em 0em" }}
-              >
-                <div className="ui container">
-                  <div className="ui inverted stackable divided grid">
-                    <div className="row">
-                      <div className="three wide column">
-                        <h4 className="ui inverted header">About</h4>
-                        <div role="list" className="ui inverted link list">
-                          <a role="listitem" className="item">
-                            Sitemap
-                          </a>
-                          <a role="listitem" className="item">
-                            Contact Us
-                          </a>
-                        </div>
-                      </div>
-                      <div className="three wide column">
-                        <h4 className="ui inverted header">Services</h4>
-                        <div role="list" className="ui inverted link list">
-                          <a role="listitem" className="item">
-                            Banana Pre-Order
-                          </a>
-                          <a role="listitem" className="item">
-                            DNA FAQ
-                          </a>
-                        </div>
+              <div className="ui container">
+                <div className="ui inverted stackable divided grid">
+                  <div className="row">
+                    <div className="three wide column">
+                      <h4 className="ui inverted header">About</h4>
+                      <div role="list" className="ui inverted link list">
+                        <a role="listitem" className="item">
+                          Sitemap
+                        </a>
+                        <a role="listitem" className="item">
+                          Contact Us
+                        </a>
                       </div>
                     </div>
-                    <h6 className="ui inverted header">
-                      © Copyright Kewlwallet 2018 | All Rights Reserved
-                    </h6>
+                    <div className="three wide column">
+                      <h4 className="ui inverted header">Services</h4>
+                      <div role="list" className="ui inverted link list">
+                        <a role="listitem" className="item">
+                          Banana Pre-Order
+                        </a>
+                        <a role="listitem" className="item">
+                          DNA FAQ
+                        </a>
+                      </div>
+                    </div>
                   </div>
+                  <h6 className="ui inverted header">
+                    © Copyright Kewlwallet 2018 | All Rights Reserved
+                  </h6>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
+      </div>
     );
   }
 }

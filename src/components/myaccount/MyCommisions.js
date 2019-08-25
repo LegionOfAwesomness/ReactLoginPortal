@@ -44,40 +44,22 @@ class MyCommisions extends React.Component {
               Home
             </a>
 
-            <div
-              role="listbox"
-              aria-expanded="false"
-              className="ui item simple dropdown"
-              tabindex="0"
-            >
-              <div className="text" role="alert" aria-live="polite">
-              <Link style={{color:'white'}} to="/myaccount">My Account</Link>
-              </div>
-              <i aria-hidden="true" className="dropdown icon" />
-              <div className="menu transition">
-                <div role="option" className="item">
-                <Link style={{color:'black'}} to="/orders">Orders</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/commisions">Commisions</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/rewards">Rewards</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/personal">My Account</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/refferals">Refferal</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/wishlists">WishList</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/">Log Out</Link>
-                </div>
-              </div>
-            </div>
+                        <div
+                          role="listbox"
+                          aria-expanded="false"
+                          className="ui item simple dropdown"
+                          tabindex="0"
+                        >
+                          <div className="text" role="alert" aria-live="polite">
+                            All Stores
+                          </div>
+                          <i aria-hidden="true" className="dropdown icon" />
+                          <div className="menu transition">
+                          <div role="option" className="item">
+                          <Link style={{color:'black'}} to="/AllStores">See all Stores</Link>
+                          </div>
+                         </div>
+                        </div>
 
             <div
               role="listbox"

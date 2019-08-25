@@ -13,13 +13,15 @@ class MyRefferals extends React.Component {
       <div>
         <div className="ui inverted top fixed menu">
           <div className="ui container">
-          <Link style={{color:'black'}} to="/home"> <a className="header item">
-              <img
-                src="/kewlwallet.jpg"
-                className="ui small image"
-                style={{ marginRight: "1.5emem" }}
-              />
-            </a>
+            <Link style={{ color: "black" }} to="/home">
+              {" "}
+              <a className="header item">
+                <img
+                  src="/kewlwallet.jpg"
+                  className="ui small image"
+                  style={{ marginRight: "1.5emem" }}
+                />
+              </a>
             </Link>
             <a className="item" onClick={this.goHome}>
               Home
@@ -32,30 +34,14 @@ class MyRefferals extends React.Component {
               tabindex="0"
             >
               <div className="text" role="alert" aria-live="polite">
-              <Link style={{color:'white'}} to="/myaccount">My Account</Link>
+                All Stores
               </div>
               <i aria-hidden="true" className="dropdown icon" />
               <div className="menu transition">
                 <div role="option" className="item">
-                <Link style={{color:'black'}} to="/orders">Orders</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/commisions">Commisions</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/rewards">Rewards</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/personal">My Account</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/refferals">Refferal</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/wishlists">WishList</Link>
-                </div>
-                <div role="option" className="item">
-                  <Link style={{color:'black'}} to="/">Log Out</Link>
+                  <Link style={{ color: "black" }} to="/AllStores">
+                    See all Stores
+                  </Link>
                 </div>
               </div>
             </div>
@@ -67,18 +53,41 @@ class MyRefferals extends React.Component {
               tabindex="0"
             >
               <div className="text" role="alert" aria-live="polite">
-                <Link style={{color:'white'}} to="/myaccount">My Account</Link>
+                <Link style={{ color: "white" }} to="/myaccount">
+                  My Account
+                </Link>
               </div>
               <i aria-hidden="true" className="dropdown icon" />
               <div className="menu transition">
                 <div role="option" className="item">
-                  Orders
+                  <Link style={{ color: "black" }} to="/orders">
+                    Orders
+                  </Link>
                 </div>
                 <div role="option" className="item">
-                  Settings
+                  <Link style={{ color: "black" }} to="/commisions">
+                    Commisions
+                  </Link>
                 </div>
                 <div role="option" className="item">
-                  Rewards
+                  <Link style={{ color: "black" }} to="/rewards">
+                    Rewards
+                  </Link>
+                </div>
+                <div role="option" className="item">
+                  <Link style={{ color: "black" }} to="/personal">
+                    My Account
+                  </Link>
+                </div>
+                <div role="option" className="item">
+                  <Link style={{ color: "black" }} to="/refferals">
+                    Refferal
+                  </Link>
+                </div>
+                <div role="option" className="item">
+                  <Link style={{ color: "black" }} to="/wishlists">
+                    WishList
+                  </Link>
                 </div>
                 <div role="option" className="item">
                   <Link style={{ color: "black" }} to="/">
@@ -92,17 +101,16 @@ class MyRefferals extends React.Component {
         <h2 class="ui center aligned header">Device Adjustment</h2>
         <h3 class="ui center aligned header">Device Column Width</h3>
         <Container>
-        <div class="ui top attached tabular menu">
-          <div class="active item">Refer My Friends</div>
-          <div class=" item">Pending Friends</div>
-          <div class=" item">Friends Refered</div>
-          <div class=" item">Statistics</div>
-        </div>
-        <div class="ui bottom attached loading tab segment">
-          <p></p>
-          <p></p>
-        </div>
-
+          <div class="ui top attached tabular menu">
+            <div class="active item">Refer My Friends</div>
+            <div class=" item">Pending Friends</div>
+            <div class=" item">Friends Refered</div>
+            <div class=" item">Statistics</div>
+          </div>
+          <div class="ui bottom attached loading tab segment">
+            <p />
+            <p />
+          </div>
         </Container>
         <div>
           <div

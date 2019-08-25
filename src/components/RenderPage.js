@@ -33,9 +33,6 @@ class RenderPage extends React.Component {
    // this.setState({ loginSucess: true });
     if((signInData.isErr !== undefined) && !signInData.isErr){
        console.log("looks like a " + this.state.loginSucess);
-      //  this.setState(
-      //    { loginSucess:true}
-      //  );
       this.props.history.push('/home')
     }
   };
@@ -64,7 +61,7 @@ class RenderPage extends React.Component {
 
   render() {
 
-
+  const showAllStores = true;
     const HomePage = () => {
       return (
         <div>
@@ -91,6 +88,10 @@ class RenderPage extends React.Component {
               />
             )}
           />
+        <Route exact path="/AllStores"  render={() => {
+          console.log('home')
+          return <UserHome  showAllStores={showAllStores}/>;
+        } } />
           <Route exact path="/home" component={UserHome}/>
           <Route exact path="/contactus" component={Contact} />} />
           <Route exact path="/myaccount" component={MyAccount}/>

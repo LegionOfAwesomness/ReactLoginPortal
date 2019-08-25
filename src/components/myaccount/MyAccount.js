@@ -36,14 +36,10 @@ class MyAccount extends React.Component {
               </div>
               <i aria-hidden="true" className="dropdown icon" />
               <div className="menu transition">
-                <div
-                  role="option"
-                  className="item"
-                  onClick={this.handleAllstores}
-                >
-                  See All Stores
-                </div>
+              <div role="option" className="item">
+              <Link style={{color:'black'}} to="/AllStores">See all Stores</Link>
               </div>
+             </div>
             </div>
 
             <div
