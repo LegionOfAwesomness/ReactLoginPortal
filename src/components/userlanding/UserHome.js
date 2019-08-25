@@ -28,7 +28,7 @@ class UserHome extends React.Component {
      * this will be true only if we route from any page in the application to /AllStores
      * @method if
      * @param  {[showAllStores]} Boolean
-     * @return {allstore section} 
+     * @return {allstore section}
      */
     if (undefined !== this.props.showAllStores && this.props.showAllStores) {
       this.state = { showAllStores: true};
@@ -268,7 +268,13 @@ class UserHome extends React.Component {
       console.log("inside showSelectedStore");
     });
   };
-
+/**
+ * This method refreshes the home page and take you back landing page
+ * used across the  toggle methods 
+ *
+ * @method goHome
+ * @return {[type]} [description]
+ */
   goHome = () => {
     this.setState({ showSingleStore: false, showAllStores: false }, () => {
       console.log("inside showSelectedStore");
@@ -288,15 +294,12 @@ class UserHome extends React.Component {
         <div>
           <div className="ui inverted top fixed menu">
             <div className="ui container">
-              <a className="header item">
+              <a className="header item" onClick={this.goHome}>
                 <img
                   src="/kewlwallet.jpg"
-                  className="ui mini image"
+                  className="ui small image"
                   style={{ marginRight: "1.5emem" }}
                 />
-              </a>
-              <a className="item" onClick={this.goHome}>
-                Home
               </a>
 
               <div
