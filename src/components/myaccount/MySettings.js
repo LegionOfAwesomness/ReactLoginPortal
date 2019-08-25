@@ -23,10 +23,6 @@ class MySettings extends React.Component {
                 />
               </a>
             </Link>
-            <a className="item" onClick={this.goHome}>
-              Home
-            </a>
-
             <div
               role="listbox"
               aria-expanded="false"

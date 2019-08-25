@@ -21,9 +21,6 @@ class MyPersonal extends React.Component {
               />
             </a>
             </Link>
-            <a className="item" onClick={this.goHome}>
-              Home
-            </a>
            //All stores component needs to be created.
             <div
               role="listbox"

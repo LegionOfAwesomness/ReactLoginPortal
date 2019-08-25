@@ -14,6 +14,7 @@ import { Container, Row, Col } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
 /**
+ * HomeHeader  - home page of the application.
  * consits of Sign up, Login portal
  *
  */
