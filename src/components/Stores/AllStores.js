@@ -94,7 +94,7 @@ class AllStores extends React.Component {
               <ButtonGroup>
           <Button outline color="primary" href={this.createMarkup(post.link_code_html) } active={this.state.rSelected === 1}>Store</Button>
 
-         <Button outline color="primary" onClick={() => {this.getStore(post.advertiser_id,post)}} active={this.state.rSelected === 2}>Coupons</Button>
+          <Button outline color="primary" onClick={() => { this.getStore(post.advertiserId,post)}} active={this.state.rSelected === 2}>Coupons</Button>
        </ButtonGroup>
             </div>)
     })
@@ -136,7 +136,7 @@ class AllStores extends React.Component {
 
 getStore = (advertiserId,advertiser) =>{
   this.props.showSelectedStore(advertiserId);
-  console.log(advertiser);
+  console.log(advertiserId);
 }
 
 

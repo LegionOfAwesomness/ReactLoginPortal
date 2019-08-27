@@ -4,18 +4,26 @@
  */
 
 import React from "react";
-import { Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Jumbotron, Row } from "reactstrap";
+import { Button, ButtonGroup,Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Jumbotron, Row } from "reactstrap";
 
 class StoreDetails extends React.Component {
   constructor(props) {
     super(props);
     this.callStoreDetailService(this.props.id);
   }
+/**
+ * extracts the url  from htm_url  variable
+ */
+  createMarkup = (doc) => {
+    // console.log(doc);
+    var str = doc.substring(9, doc.indexOf('\">\n<img'));
+    console.log('qqqqqqqqqqq' + str);
+    return str;
+  }
 
   callStoreDetailService = id => {
-    console.log("reached service call");
     var url =
-      "http://sandbox.kewlwallet.com:8080/serviceapi/getCouponsForAdvertiser/" +
+      "http://localhost:8080/getCouponsForAdvertiser/" +
       id;
     fetch(url, {
       method: "get",
@@ -64,7 +72,9 @@ class StoreDetails extends React.Component {
       </Card>
     );
   };
-
+/**
+ * displays coupons for selected advertiser
+ */
   getAllCoupons = () => {
     return (
       <div>
@@ -81,10 +91,11 @@ class StoreDetails extends React.Component {
                 )}
                 <div
                   class="ui bottom attached button"
-                  dangerouslySetInnerHTML={{
-                    __html: post.link_code_javascript
-                  }}
+            
                 />
+                <ButtonGroup>
+                  <Button outline color="primary" href={this.createMarkup(post.link_code_html)} active={this.state.rSelected === 1}>Visit Store</Button>
+                </ButtonGroup>
               </div>
             );
           })}
