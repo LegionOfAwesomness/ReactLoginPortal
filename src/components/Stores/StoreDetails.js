@@ -9,7 +9,7 @@ import { Button, ButtonGroup,Card, CardBody, CardImg, CardSubtitle, CardText, Ca
 class StoreDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.callStoreDetailService(this.props.id );
+    this.callStoreDetailService(this.props.id);
   }
   /**
    * example - <a href="http://[CLICK DOMAIN]/click-1122567-98766543?sid=shopperid8675309>
@@ -36,7 +36,7 @@ class StoreDetails extends React.Component {
       .then(
         result => {
           this.setState({ value: result }, () => {
-            console.log(this.state.value)
+          console.log(this.state.value[0]);
           });
         },
         // Note: it's important to handle errors here
@@ -50,7 +50,6 @@ class StoreDetails extends React.Component {
   // image and description on the left of the page
   //this is static data as of now.
   getAdvertiser = () => {
-    console.log("inde the advertiser method");
 
     return (
       <Card>
@@ -84,15 +83,6 @@ class StoreDetails extends React.Component {
             return (
               <div class="ui message" >
                 <div class="header">{post.link_name}</div>
-                {post.coupon_code !== "" && (
-                  <div class="ui tag labels">
-                    <a class="ui teal tag label">{post.coupon_code}</a>
-                  </div>
-                )}
-                <div
-                  class="ui bottom attached button"
-            
-                />
                 <ButtonGroup>
                   <Button outline color="primary" href={this.createMarkup(post.link_code_html, this.props.sId)} active={this.state.rSelected === 1} target="_blank" >Visit Store</Button>
                 </ButtonGroup>
