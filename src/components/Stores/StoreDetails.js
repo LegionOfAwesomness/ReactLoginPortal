@@ -9,19 +9,19 @@ import { Button, ButtonGroup,Card, CardBody, CardImg, CardSubtitle, CardText, Ca
 class StoreDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.callStoreDetailService(this.props.id);
+    this.callStoreDetailService(this.props.id );
   }
-/**
- * extracts the url  from htm_url  variable
- */
-  createMarkup = (doc) => {
+  /**
+   * example - <a href="http://[CLICK DOMAIN]/click-1122567-98766543?sid=shopperid8675309>
+   */
+  createMarkup = (doc, userId) => {
     // console.log(doc);
-    var str = doc.substring(9, doc.indexOf('\">\n<img'));
-    console.log('qqqqqqqqqqq' + str);
+    var str = doc.substring(9, doc.indexOf('\">\n<img')) + '?sid=' + userId;
+    console.log(str);
     return str;
   }
 
-  callStoreDetailService = id => {
+  callStoreDetailService = (id)=> {
     var url =
       "http://localhost:8080/getCouponsForAdvertiser/" +
       id;
@@ -61,7 +61,7 @@ class StoreDetails extends React.Component {
           alt="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
         />
         <CardBody>
-          <CardTitle>Store Name</CardTitle>
+          <CardTitle>{}</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>
             Some quick example text to build on the card title and make up the
@@ -94,7 +94,7 @@ class StoreDetails extends React.Component {
             
                 />
                 <ButtonGroup>
-                  <Button outline color="primary" href={this.createMarkup(post.link_code_html)} active={this.state.rSelected === 1}>Visit Store</Button>
+                  <Button outline color="primary" href={this.createMarkup(post.link_code_html, this.props.sId)} active={this.state.rSelected === 1} target="_blank" >Visit Store</Button>
                 </ButtonGroup>
               </div>
             );

@@ -13,7 +13,15 @@ import { Container, Row, Col, Navbar, NavbarBrand } from "reactstrap";
 import StoreDetails from "../Stores/StoreDetails";
 import Slider from "react-slick";
 import { STORES, FEATURED } from "../../Shared/SampleData";
+import {connect }  from 'react-redux';
+import { userDetails} from '../../actions';
+
+
+
 var storesList = [];
+/**
+ * 
+ */
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
@@ -147,7 +155,7 @@ class UserHome extends React.Component {
                   <Button
                     variant="outline-primary"
                     onClick={() => {
-                      this.showSelectedStore(post.advertiser_id);
+                      this.showSelectedStore(post.advertiser_id );
                     }}
                     active={this.state.rSelected === 2}
                   >
@@ -263,8 +271,8 @@ class UserHome extends React.Component {
     });
   };
 
-  showSelectedStore = id => {
-    this.setState({ showSingleStore: true, storeId: id }, () => {
+  showSelectedStore = (id , userId) => {
+    this.setState({ showSingleStore: true, storeId: id, sId: userId  }, () => {
       console.log("inside showSelectedStore");
     });
   };
@@ -282,6 +290,7 @@ class UserHome extends React.Component {
   };
 
   render() {
+    console.log(this.props.userInfo);
     var settings = {
       dots: true,
       infinite: true,
@@ -476,7 +485,7 @@ class UserHome extends React.Component {
             </div>
 
             {this.state.showSingleStore && (
-              <StoreDetails id={this.state.storeId} />
+              <StoreDetails id={this.state.storeId} sId={this.state.sId}/>
             )}
           </Container>
           <div
@@ -514,7 +523,7 @@ class UserHome extends React.Component {
                     </div>
                   </div>
                   <h6 className="ui inverted header">
-                    © Copyright Kewlwallet 2018 | All Rights Reserved
+                    © Copyright Kewlwallet 2018 | All Rights Reserved 
                   </h6>
                 </div>
               </div>
@@ -526,4 +535,11 @@ class UserHome extends React.Component {
   }
 }
 
-export default UserHome;
+ const mapStateToProps = (state) => {
+   console.log(state);
+  return {
+    userInfo: state.user
+  };
+};
+ 
+export default connect(mapStateToProps, { userDetails})(UserHome);

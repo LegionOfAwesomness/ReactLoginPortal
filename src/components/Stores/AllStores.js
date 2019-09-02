@@ -4,6 +4,9 @@ import { css } from "glamor";
 import { ListGroup, Tab  } from "react-bootstrap";
 import { Button , ButtonGroup } from 'reactstrap';
 import { Container, Row, Col } from "reactstrap";
+import { connect } from 'react-redux';
+
+
 var storesList = [];
 let size = 0;
 
@@ -65,11 +68,14 @@ class AllStores extends React.Component {
     });
   };
 
-  createMarkup = (doc) => {
+  /**
+   * example - <a href="http://[CLICK DOMAIN]/click-1122567-98766543?sid=shopperid8675309>
+   */
+  createMarkup = (doc , userId) => {
    // console.log(doc);
-    var str = doc.substring(9, doc.indexOf('\">\n<img'));
-    console.log('qqqqqqqqqqq' + str);
-    return str;
+    var str = doc.substring(9, doc.indexOf('\">\n<img')) + '?sid=' + userId;
+    console.log(str);
+    return str ;
   }
   //render the store
   renderPaginationList = () => {
@@ -80,7 +86,7 @@ class AllStores extends React.Component {
       //let boundItemClick = this.getStore.bind( this,post);
     //  console.log(boundItemClick);
       // Construct the onClick with our bound function
-      return (     <div class="card"  key={post.advertiser_id}>
+      return (     <div class="card"  key={post.id}>
 
               <div class="content">
                 <img
@@ -92,9 +98,9 @@ class AllStores extends React.Component {
                 <div class="description">{post.content}</div>
               </div>
               <ButtonGroup>
-          <Button outline color="primary" href={this.createMarkup(post.link_code_html) } active={this.state.rSelected === 1}>Store</Button>
+          <Button outline color="primary" href={this.createMarkup(post.link_code_html, this.props.userInfo.loginData.userId)} active={this.state.rSelected === 1} target="_blank"  >Store</Button>
 
-          <Button outline color="primary" onClick={() => { this.getStore(post.advertiserId,post)}} active={this.state.rSelected === 2}>Coupons</Button>
+          <Button outline color="primary" onClick={() => { this.getStore(post.advertiserId, this.props.userInfo.loginData.userId)}} active={this.state.rSelected === 2}>Coupons</Button>
        </ButtonGroup>
             </div>)
     })
@@ -134,9 +140,9 @@ class AllStores extends React.Component {
     console.log(this.state);
   };
 
-getStore = (advertiserId,advertiser) =>{
-  this.props.showSelectedStore(advertiserId);
-  console.log(advertiserId);
+getStore = (advertiserId,userId) =>{
+  this.props.showSelectedStore(advertiserId, userId);
+  console.log(advertiserId, userId);
 }
 
 
@@ -154,24 +160,6 @@ getStore = (advertiserId,advertiser) =>{
               console.log(`Link to page ${i} was clicked.`);
             }}
           />
-          <a class="item">A</a>
-          <a class="item">B</a>
-          <a class="item">C</a>
-          <a class="item">D</a>
-          <a class="item">E</a>
-          <a class="item">F</a>
-          <a class="item">G</a>
-          <a class="item">H</a>
-          <a class="item">I</a>
-          <a class="item">J</a>
-          <a class="item">K</a>
-          <a class="item">T</a>
-          <a class="item">U</a>
-          <a class="item">V</a>
-          <a class="item">W</a>
-          <a class="item">X</a>
-          <a class="item">Y</a>
-          <a class="item">Z</a>
         </div>
 
         <div class="ui grid">
@@ -199,4 +187,12 @@ getStore = (advertiserId,advertiser) =>{
     );
   }
 }
-export default AllStores;
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    userInfo: state.user
+  };
+};
+
+export default connect(mapStateToProps)(AllStores);

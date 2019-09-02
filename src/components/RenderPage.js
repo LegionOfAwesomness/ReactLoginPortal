@@ -11,7 +11,8 @@ import MyRewards from "./myaccount/MyRewards";
 import MyVouchers from "./myaccount/MyVouchers";
 import MySettings from "./myaccount/MySettings";
 import ConfirmEmail from "./signin/ConfirmEmail";
-
+import { connect } from 'react-redux';
+import { userDetails } from '../actions';
 import {
   Switch,
   Route,
@@ -27,12 +28,14 @@ class RenderPage extends React.Component {
   }
 
   //sign in processing
+  /**
+   * need to relook at thr flow
+   */
   processSignin = signInData => {
-    console.log("inside RenderPage");
-    console.log(signInData);
-   // this.setState({ loginSucess: true });
+    //this.setState({ loginSucess: true });
     if((signInData.isErr !== undefined) && !signInData.isErr){
-       console.log("looks like a " + this.state.loginSucess);
+    //updates the user object in redux
+      this.props.userDetails(signInData)
       this.props.history.push('/home')
     }
   };
@@ -60,7 +63,7 @@ class RenderPage extends React.Component {
 
 
   render() {
-
+console.log(this.props);
   const showAllStores = true;
     const HomePage = () => {
       return (
@@ -112,4 +115,12 @@ class RenderPage extends React.Component {
   }
 }
 
-export default withRouter(RenderPage);
+const mapStateToProps = (state) => {
+  console.log('inside the redux mapstate to props');
+  console.log(state);
+  return {
+    userInfo: state
+  };
+};
+export default  withRouter(connect(mapStateToProps, { userDetails })(RenderPage));
+

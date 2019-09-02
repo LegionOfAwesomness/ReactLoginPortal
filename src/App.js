@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { selectUser } from './actions';
 
 import { BrowserRouter } from 'react-router-dom';
 import RenderPage from "./components/RenderPage";
