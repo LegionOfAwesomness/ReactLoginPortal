@@ -23,7 +23,7 @@ class StoreDetails extends React.Component {
 
   callStoreDetailService = (id)=> {
     var url =
-      "http://localhost:8080/getCouponsForAdvertiser/" +
+      "http://sandbox.kewlwallet.com:8080/serviceapi/getCouponsForAdvertiser/" +
       id;
     fetch(url, {
       method: "get",
