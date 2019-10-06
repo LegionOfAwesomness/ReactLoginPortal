@@ -145,18 +145,6 @@ class SignUp extends React.Component {
       }
     }
 
-    // if (!fields["mname"]) {
-    //   formIsValid = false;
-    //   errors["mname"] = "*Please enter your middle name.";
-    // }
-    //
-    // if (typeof fields["mname"] !== "undefined") {
-    //   if (!fields["mname"].match(/^[a-zA-Z ]*$/)) {
-    //     formIsValid = false;
-    //     errors["mname"] = "*Please enter alphabet characters only.";
-    //   }
-    // }
-
     if (!fields["lname"]) {
       formIsValid = false;
       errors["lname"] = "*Please enter your last name.";

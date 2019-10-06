@@ -11,6 +11,8 @@ import MyRewards from "./myaccount/MyRewards";
 import MyVouchers from "./myaccount/MyVouchers";
 import MySettings from "./myaccount/MySettings";
 import ConfirmEmail from "./signin/ConfirmEmail";
+import ResetPassword from "./signin/ResetPassword";
+import ChangePassword from "./signin/ChangePassword";
 import { connect } from 'react-redux';
 import { userDetails } from '../actions';
 import {
@@ -107,6 +109,8 @@ console.log(this.props);
           <Route exact path="/settings" component={MySettings}/>
           <Route exact path="/wishlists" component={MyWishlists}/>
           <Route exact path="/confirm" component={ConfirmEmail}/>
+          <Route exact path="/password-reset" component={ResetPassword}/>
+          <Route exact path="/change-password" component={ChangePassword} />
           <Route exact path="/ServerError" component={MyVouchers}/>
           <Redirect to="/"/>
         </Switch>
@@ -123,4 +127,3 @@ const mapStateToProps = (state) => {
   };
 };
 export default  withRouter(connect(mapStateToProps, { userDetails })(RenderPage));
-

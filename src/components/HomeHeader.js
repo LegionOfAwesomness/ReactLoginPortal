@@ -131,7 +131,10 @@ class HomeHeader extends React.Component {
     });
   };
 
-
+/**
+ * go to Render page and route to user Home
+ * 
+ */
   goTolandingPage = () => {
     //need to check if this is still neccesary
     // already being seet in the following method
@@ -254,25 +257,6 @@ class HomeHeader extends React.Component {
                 padding: "8em 0em"
               }}
             >
-              <div className="ui container stackable middle aligned grid">
-                <h3
-                  className="ui header"
-                  style={{
-                    fontSize: "2em"
-                  }}
-                >
-                  We Help Companies and Companions{" "}
-                </h3>
-                <div class="ui segment">
-                  <ReactPlayer
-                    url="https://youtu.be/We5hMpI2HbU"
-                    className="react-player"
-                    playing
-                    width="100%"
-                    height="100%"
-                  />
-                </div>{" "}
-              </div>{" "}
             </div>
           )}
           {this.state.showModal && (
